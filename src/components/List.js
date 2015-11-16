@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {AltContainer} from 'alt';
+var AltContainer = require('alt/AltContainer');
 import DraggableStore from '../stores/DraggableStore';
-import Draggable from './Draggable'
-import ListItem from './ListItem'
+import Draggable from './Draggable';
+import ListItem from './ListItem';
+
 
 export default class List extends Component{
    constructor(){
@@ -31,8 +32,10 @@ export default class List extends Component{
       choices.forEach((choice, index) => {
 			var componentId = this.props.id + "." + index;
          this.listItems.push(
-				<AltContainer store={DraggableStore}>
-				<Draggable key={componentId}><ListItem key={componentId + "." + choice.id} {...choice} />
+				<AltContainer key={componentId + "-Alt-Container"} store={DraggableStore}>
+					<Draggable key={componentId + "-draggable"}>
+						<ListItem key={componentId} {...choice} id={componentId} />
+					</Draggable>
 				</AltContainer>
 			);
       }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import List from './components/List'
+import DraggableStore from './stores/DraggableStore';
+import List from './components/List';
 
 export default class Game extends Component{
    constructor(){
@@ -17,7 +18,8 @@ export default class Game extends Component{
    }
    renderColumns(){
       this.props.columns.forEach((column, index) =>{
-         this.columns.push(<List key={this.props.key +"."+ index} id={this.props.key +"."+ index} choices={this.props.choices} {...column} />);
+			var id = this.props.key +"."+ index;
+         this.columns.push(<List key={id} id={index} choices={this.props.choices} {...column} />);
       });
       return this.columns;
    }

@@ -1,21 +1,12 @@
-import AppDispatcher from '../Dispatcher';
-import {Action} from 'flux/utils';
-import ActionType from '../ActionType';
+import alt from '../alt';
 
-var DraggableAction = {
-	CLICKED: function(action){
-		AppDispatcher.handleViewAction({
-			actionType: ActionType.Draggable.CLICKED,
-			style: action.style
-		});
-	},
-	NON_CLICKED: function(action){
-		AppDispatcher.handleViewAction({
-			actionType: ActionType.Draggable.NON_CLICKED,
-			style: action.style
-		});
+class DraggableActions {
+	clicked(){
+		this.dispatch();
 	}
+	nonClicked(){
+		this.dispatch();
+	}
+};
 
-}
-
-module.exports = DraggableAction;
+module.exports = alt.createActions(DraggableActions);

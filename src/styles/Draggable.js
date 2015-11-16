@@ -2,9 +2,9 @@ var DraggableStyle = {
 	"nonClicked": {
 		"backgroundColor": "gray"
 	},
-	"Clicked": {
+	"clicked": {
 		"backgroundColor":"pink"
 	}
 };
 
-modules.export = DraggableStyle;
+module.exports = DraggableStyle;
