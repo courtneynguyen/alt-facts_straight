@@ -1,0 +1,31 @@
+{
+  "name": "alt-facts_straight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/courtneynguyen/reactor.git"
+  },
+  "author": "cyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/courtneynguyen/reactor/issues"
+  },
+  "homepage": "https://github.com/courtneynguyen/reactor#readme",
+  "devDependencies": {
+    "babel-core": "^5.8.33",
+    "babel-loader": "^5.3.3",
+    "babel-preset-es2015": "^6.1.2",
+    "es6": "0.0.7",
+    "eslint": "^1.9.0",
+    "json-loader": "^0.5.3",
+    "react-loader": "^2.0.0",
+    "webpack": "^1.12.2"
+  },
+  "dependencies": {
+    "alt": "^0.17.9",
+    "react": "^0.14.1",
+    "react-dom": "^0.14.1"
+  }
+}
