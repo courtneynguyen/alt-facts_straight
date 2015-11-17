@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ListItemDecorator from './ListItemDecorator'
 
 export default class ListItem extends Component {
    render(){

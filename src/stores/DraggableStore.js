@@ -4,6 +4,13 @@ import DraggableStyles from '../styles/Draggable';
 
 class DraggableStore{
 	constructor(){
+		// this.draggable=[
+		// 	{
+		// 		clicked: false,
+		// 		dragging: false,
+		// 		style: DraggableStyles.nonClicked
+		// 	}
+		// ];
 		this.draggable = {
 			clicked: false,
 			dragging: false,

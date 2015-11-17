@@ -30,9 +30,9 @@ export default class List extends Component{
          return this.props.answers.indexOf(choice.id) > -1;
       });
       choices.forEach((choice, index) => {
-			var componentId = this.props.id + "." + index;
+			var componentId = index + choice.description;
          this.listItems.push(
-				<AltContainer key={componentId + "-Alt-Container"} store={DraggableStore}>
+				<AltContainer key={componentId} store={DraggableStore}>
 					<Draggable key={componentId + "-draggable"}>
 						<ListItem key={componentId} {...choice} id={componentId} />
 					</Draggable>

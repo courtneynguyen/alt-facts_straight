@@ -18,7 +18,7 @@ export default class Game extends Component{
    }
    renderColumns(){
       this.props.columns.forEach((column, index) =>{
-			var id = this.props.key +"."+ index;
+			var id = index;
          this.columns.push(<List key={id} id={index} choices={this.props.choices} {...column} />);
       });
       return this.columns;
