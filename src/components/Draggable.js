@@ -22,7 +22,7 @@ export default class Draggable extends Component{
 			);
 		});
 		return (
-			<div className="WelcomeTOHell">
+			<div className="Draggable">
 			{draggableComponents}
 			</div>
 		);
