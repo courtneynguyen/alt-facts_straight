@@ -9,7 +9,9 @@ function getDraggables(){
 }
 
 export default class DraggableContainer extends Component{
-
+	componentDidMount(){
+		DraggableActions.createFake();
+	}
 	render(){
 			return (
 				<div>

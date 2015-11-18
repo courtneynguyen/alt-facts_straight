@@ -1,10 +1,16 @@
-import alt from '../alt';
+var alt = require('../alt');
 
 class DraggableActions {
-	clicked(){
-		this.dispatch();
+	clicked(id){
+		this.dispatch(id);
 	}
-	nonClicked(){
+	nonClicked(id){
+		this.dispatch(id);
+	}
+	createDraggable(id){
+		this.dispatch(id);
+	}
+	createFake(){
 		this.dispatch();
 	}
 };
