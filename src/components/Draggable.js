@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import DraggableActions from '../actions/DraggableActions';
 import DraggableStore from '../stores/DraggableStore';
+import DraggableStyles from '../styles/Draggable';
 
 export default class Draggable extends Component{
 	render(){
 		var draggableComponents = [];
 		draggableComponents = this.props.draggable.map((draggable, i) => {
 			if(draggable.clicking){
-				draggable.style = {backgroundColor: "pink"};
+				draggable.style = DraggableStyles.Clicking;
 			}
 			else{
-				draggable.style = {backgroundColor: "gray"};
+				draggable.style = DraggableStyles.Normal;
 			}
 			return(
 				<div key={i} data-id={draggable.id}

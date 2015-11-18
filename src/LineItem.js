@@ -4,7 +4,9 @@ import DraggableContainer from './DraggableContainer';
 export default class LineItem extends Component{
 	constructor(){
 		super();
-		this.style = {};
+		this.style = {
+			"fontFamily": "sans-serif"
+		};
 	}
 	render(){
 		return(
@@ -16,7 +18,7 @@ export default class LineItem extends Component{
 export default class MainSection extends Component{
 	render(){
 		return(
-			<div>
+			<div style={this.style}>
 			<DraggableContainer key={"0.0"}>
 			<LineItem key={"0.0.1"}/>
 			</DraggableContainer>
