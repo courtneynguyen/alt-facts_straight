@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import DraggableActions from '../actions/DraggableActions';
 
 export default class Draggable extends Component{
 	render(){
 		return (
-			<div onMouseDown={this.handleMouseDown.bind(this)} onMouseUp={this.handleMouseUp.bind(this)} style={this.props.draggable.style}>
+			<div onMouseDown={this.handleMouseDown.bind(this)} onMouseUp={this.handleMouseUp.bind(this)}>
 			{this.props.children}
 			</div>
 		);
@@ -13,13 +12,13 @@ export default class Draggable extends Component{
 
 	handleMouseDown(event){
 		console.log('mouse down');
+		DraggableActions.clicked();
 		console.log(this);
-		DraggableActions.clicked(this.props.id);
 	}
 
 	handleMouseUp(syntheticMouseEvent){
 		console.log('mouse up');
+		DraggableActions.nonClicked();
 		console.log(this);
-		DraggableActions.nonClicked(this.props.id);
 	}
 }
