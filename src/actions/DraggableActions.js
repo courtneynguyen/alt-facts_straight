@@ -1,11 +1,11 @@
 import alt from '../alt';
 
 class DraggableActions {
-	clicked(){
-		this.dispatch();
+	clicked(id){
+		this.dispatch(id);
 	}
-	nonClicked(){
-		this.dispatch();
+	nonClicked(id){
+		this.dispatch(id);
 	}
 };
 

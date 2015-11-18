@@ -4,18 +4,7 @@ import DraggableStyles from '../styles/Draggable';
 
 class DraggableStore{
 	constructor(){
-		// this.draggable=[
-		// 	{
-		// 		clicked: false,
-		// 		dragging: false,
-		// 		style: DraggableStyles.nonClicked
-		// 	}
-		// ];
-		this.draggable = {
-			clicked: false,
-			dragging: false,
-			style: DraggableStyles.nonClicked
-		};
+		this.draggable = {};
 
 		this.bindListeners({
 		  clicked: DraggableActions.CLICKED,
@@ -23,38 +12,45 @@ class DraggableStore{
 		});
 
 		this.exportPublicMethods({
-		  getStyle: this.getStyle
+		  getStyle: this.getStyle,
+		  getDraggables: this.getDraggables
 		});
 	}
 
-	nonClicked(){
-		this.draggable.clicked = false;
-		this.draggable.dragging = false;
-		this.getStyle();
+	nonClicked(id){
+		this.draggable[id].clicked = false;
+		this.draggable[id].dragging = false;
+		this.draggable[id].style = this.getStyle(id);
 	}
 
-	clicked(){
-		this.draggable.clicked = true;
-		this.getStyle();
+	clicked(id){
+		this.draggable[id].clicked = true;
+		this.draggable[id].style = this.getStyle(id);
 	}
 
-	getStyle(){
+	getDraggables(){
+		return draggable;
+	}
+
+	getStyle(id){
+		var style = "";
 		if(this.state){
-			if(this.state.draggable && this.state.draggable.clicked){
-				this.state.draggable.style = DraggableStyles.clicked;
+			if(this.state.draggable && this.state.draggable[id].clicked){
+				style = DraggableStyles.clicked;
 			}
 			else{
-				this.state.draggable.style = DraggableStyles.nonClicked;
+				style = DraggableStyles.nonClicked;
 			}
 		}
 		else if(this.draggable){
-			if(this.draggable.clicked){
-				this.draggable.style = DraggableStyles.clicked;
+			if(this.draggable[id].clicked){
+				style = DraggableStyles.clicked;
 			}
 			else{
-				this.draggable.style = DraggableStyles.nonClicked;
+				style = DraggableStyles.nonClicked;
 			}
 		}
+		return style;
 	}
 };
 

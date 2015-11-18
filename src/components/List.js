@@ -4,7 +4,9 @@ import DraggableStore from '../stores/DraggableStore';
 import Draggable from './Draggable';
 import ListItem from './ListItem';
 
-
+function getDraggableState(){
+	return DraggableStore.getDraggables();
+}
 export default class List extends Component{
    constructor(){
       super();

@@ -5,17 +5,21 @@ import DraggableActions from '../actions/DraggableActions';
 export default class Draggable extends Component{
 	render(){
 		return (
-			<div onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp} style={this.props.draggable.style}>
+			<div onMouseDown={this.handleMouseDown.bind(this)} onMouseUp={this.handleMouseUp.bind(this)} style={this.props.draggable.style}>
 			{this.props.children}
 			</div>
 		);
 	}
 
 	handleMouseDown(event){
-		DraggableActions.clicked();
+		console.log('mouse down');
+		console.log(this);
+		DraggableActions.clicked(this.props.id);
 	}
 
 	handleMouseUp(syntheticMouseEvent){
-		DraggableActions.nonClicked();
+		console.log('mouse up');
+		console.log(this);
+		DraggableActions.nonClicked(this.props.id);
 	}
 }
