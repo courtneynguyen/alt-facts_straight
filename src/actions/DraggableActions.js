@@ -13,6 +13,9 @@ class DraggableActions {
 	createFake(){
 		this.dispatch();
 	}
+	drag(id){
+		this.dispatch(id);
+	}
 };
 
 module.exports = alt.createActions(DraggableActions);

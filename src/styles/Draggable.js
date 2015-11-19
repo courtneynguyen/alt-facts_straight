@@ -14,7 +14,8 @@ var DraggableStyle = {
 		"textAlign": "center",
 		"fontFamily": "sans-serif",
 		"transform": "rotate(-2deg)",
-		"cursor": "-webkit-grabbing"
+		"cursor": "-webkit-grabbing",
+		"position": "absolute"
 	}
 };
 
