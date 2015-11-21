@@ -13,6 +13,14 @@ export default class DraggableContainer extends Component{
 		DraggableActions.createFake();
 	}
 	render(){
+		var draggableComponents = [];
+		draggableComponents = this.props.draggable.map((draggable, i) => {
+			if(draggable.clicking){
+				draggable.style = DraggableStyles.Clicking;
+			}
+			else{
+				draggable.style = DraggableStyles.Normal;
+			}
 			return (
 				<div>
 					<AltContainer store={DraggableStore}>
@@ -23,4 +31,16 @@ export default class DraggableContainer extends Component{
 				</div>
 			);
 		}
+	}
+
+	handleMouseDown(ev){
+		DraggableActions.clicked(Number(ev.target.getAttribute('data-id')));
+	}
+
+	handleMouseUp(ev){
+		DraggableActions.nonClicked(Number(ev.target.getAttribute('data-id')));
+	}
+
+	handleDrag(ev){
+		DraggableActions.drag(Number(ev.target.getAttribute('data-id')));
 	}

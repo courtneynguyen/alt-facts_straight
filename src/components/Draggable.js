@@ -5,14 +5,6 @@ import DraggableStyles from '../styles/Draggable';
 
 export default class Draggable extends Component{
 	render(){
-		var draggableComponents = [];
-		draggableComponents = this.props.draggable.map((draggable, i) => {
-			if(draggable.clicking){
-				draggable.style = DraggableStyles.Clicking;
-			}
-			else{
-				draggable.style = DraggableStyles.Normal;
-			}
 			return(
 				<div key={i} data-id={draggable.id}
 				onMouseDownCapture={this.handleMouseDown.bind(this)}
@@ -30,15 +22,5 @@ export default class Draggable extends Component{
 		);
 	}
 
-	handleMouseDown(ev){
-		DraggableActions.clicked(Number(ev.target.getAttribute('data-id')));
-	}
 
-	handleMouseUp(ev){
-		DraggableActions.nonClicked(Number(ev.target.getAttribute('data-id')));
-	}
-
-	handleDrag(ev){
-		DraggableActions.drag(Number(ev.target.getAttribute('data-id')));
-	}
 }

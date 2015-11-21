@@ -20,7 +20,7 @@ export default class MainSection extends Component{
 		return(
 			<div style={this.style}>
 			<DraggableContainer key={"0.0"}>
-			<LineItem key={"0.0.1"}/>
+				<LineItem key={"0.0.1"}/>
 			</DraggableContainer>
 			</div>
 		)
