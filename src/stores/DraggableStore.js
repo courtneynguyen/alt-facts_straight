@@ -26,6 +26,7 @@ class DraggableStore{
 
 	clicked(id){
 		this.draggable[id].clicking = true;
+		_body.addEventListener("mousemove", this.trackMouseForDropTarget, false);
 	}
 
 	dragging(id){
@@ -51,7 +52,7 @@ class DraggableStore{
 		];
 	}
 
-	setMousePosition(ev){
+	trackMouseForDropTarget(ev){
 		_mousePos.x = ev.clientX;
 		_mousePos.y = ev.clientY;
 	}

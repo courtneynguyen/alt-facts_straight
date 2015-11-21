@@ -16,8 +16,8 @@ export default class Draggable extends Component{
 			return(
 				<div key={i} data-id={draggable.id}
 				onMouseDownCapture={this.handleMouseDown.bind(this)}
-				onMouseUpCapture={this.handleMouseUp.bind(this)}
-				onDrag={this.handleDrag.bind(this)}
+				// onMouseUpCapture={this.handleMouseUp.bind(this)}
+				// onDrag={this.handleDrag.bind(this)}
 				style={draggable.style}>
 				{this.props.children} {draggable.id} clicking: {draggable.clicking + ""}
 				</div>
@@ -31,17 +31,14 @@ export default class Draggable extends Component{
 	}
 
 	handleMouseDown(ev){
-		console.log('mouse down', Number(ev.target.getAttribute('data-id')));
 		DraggableActions.clicked(Number(ev.target.getAttribute('data-id')));
 	}
 
 	handleMouseUp(ev){
-		console.log('mouse up', Number(ev.target.getAttribute('data-id')));
 		DraggableActions.nonClicked(Number(ev.target.getAttribute('data-id')));
 	}
 
 	handleDrag(ev){
-		console.log('on drag', Number(ev.target.getAttribute('data-id')));
 		DraggableActions.drag(Number(ev.target.getAttribute('data-id')));
 	}
 }

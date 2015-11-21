@@ -1,43 +1,79 @@
 {
-   "title": "Get The Facts Straight",
-   "columns":[
-      {
-         "title": "Tacos",
-         "correctAnswers": [1],
-         "answers": []
-      },
-      {
-         "title": "Same",
-         "correctAnswers": [3, 2],
-         "answers": []
-      },
-      {
-         "title": "Cats",
-         "correctAnswers": [0, 2],
-         "answers": []
-      },
-      {
-         "title": "Drag and Drop",
-         "correctAnswers": [],
-         "answers": [0,1,2,3]
-      }
-   ],
-   "choices": [
-      {
-         "id":0,
-         "description": "Cuddly"
-      },
-      {
-         "id":1,
-         "description": "Edible"
-      },
-      {
-         "id":2,
-         "description": "Soft"
-      },
-      {
-         "id":3,
-         "description": "Amazing"
-      }
-   ]
-}
+	"title": "Get The Facts Straight",
+	"columns":[
+		{
+			"title": "Tacos",
+			"correctAnswers": [
+				{
+					"id":1,
+					"description": "Edible"
+				}
+			],
+			"answers": []
+		},
+		{
+			"title": "Same",
+			"correctAnswers":
+			[{
+				"id":3,
+				"description": "Amazing"
+			},
+			{
+				"id":2,
+				"description": "Soft"
+				}],
+				"answers": []
+			},
+			{
+				"title": "Cats",
+				"correctAnswers": [{
+					"id":0,
+					"description": "Cuddly"
+					},
+					{
+						"id":2,
+						"description": "Soft"
+					}],
+					"answers": []
+				},
+				{
+					"title": "Drag and Drop",
+					"correctAnswers": [],
+					"answers": [
+						{
+							"id":0,
+							"description": "Cuddly"
+						},
+						{
+							"id":1,
+							"description": "Edible"
+						},
+						{
+							"id":2,
+							"description": "Soft"
+						},
+						{
+							"id":3,
+							"description": "Amazing"
+						}]
+						}
+					],
+					"choices": [
+						{
+							"id":0,
+							"description": "Cuddly"
+						},
+						{
+							"id":1,
+							"description": "Edible"
+						},
+						{
+							"id":2,
+							"description": "Soft"
+						},
+						{
+							"id":3,
+							"description": "Amazing"
+						}
+					]
+				}
