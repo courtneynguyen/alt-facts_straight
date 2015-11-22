@@ -9,31 +9,27 @@ function getDraggables(){
 }
 
 export default class DraggableContainer extends Component{
-	componentDidMount(){
-		DraggableActions.createFake();
-	}
 	render(){
+		console.log(this.props.children);
 		var draggableComponents = [];
-		draggableComponents = this.props.draggable.map((draggable, i) => {
-			if(draggable.clicking){
-				draggable.style = DraggableStyles.Clicking;
-			}
-			else{
-				draggable.style = DraggableStyles.Normal;
-			}
-			return (
-				<div>
-					<AltContainer store={DraggableStore}>
-						<Draggable>
-						{this.props.children}
-						</Draggable>
-					</AltContainer>
-				</div>
+		draggableComponents = React.Children.map(this.props.children, (child, i) => {
+			console.log('child?', child);
+			DraggableStore.createDraggable(i);
+			return(
+				<Draggable handleClick={this.handleMouseDown} key={i} id={i}>
+				{child.props.children}
+				</Draggable>
 			);
-		}
+		});
+		return (
+			<AltContainer store={DraggableStore}>
+			{draggableComponents}
+			</AltContainer>
+		);
 	}
 
 	handleMouseDown(ev){
+		console.log('clicked');
 		DraggableActions.clicked(Number(ev.target.getAttribute('data-id')));
 	}
 
@@ -44,3 +40,4 @@ export default class DraggableContainer extends Component{
 	handleDrag(ev){
 		DraggableActions.drag(Number(ev.target.getAttribute('data-id')));
 	}
+}

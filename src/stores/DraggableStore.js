@@ -15,7 +15,9 @@ class DraggableStore{
 		  createFakeDraggables: DraggableActions.CREATE_FAKE,
 		  dragging: DraggableActions.DRAG
 		});
-
+		this.exportPublicMethods({
+			createDraggable: this.createDraggable
+		});
 	}
 
 	nonClicked(id){
