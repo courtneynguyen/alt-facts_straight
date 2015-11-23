@@ -4,10 +4,11 @@ import DraggableStyles from '../styles/Draggable';
 
 var _mousePos = {};
 var _body = document.getElementsByTagName("body")[0];
+
 class DraggableStore{
 	constructor(){
-		this.draggable = [];
-
+		this.draggable = {};
+		console.log('draggable array exits ', this.draggable);
 		this.bindListeners({
 		  clicked: DraggableActions.CLICKED,
 		  nonClicked: DraggableActions.NON_CLICKED,
@@ -39,11 +40,14 @@ class DraggableStore{
 	}
 
 	createDraggable(id){
-		this.draggable.push({
+		var state = this.getState();
+		state.draggable[id] = {
 			id: id,
 			clicking: false,
-			dragging: false
-		});
+			dragging: false,
+			pos: {x: 0, y: 0},
+			originPos: {x: 0, y: 0}
+		}
 	}
 
 	createFakeDraggables(){

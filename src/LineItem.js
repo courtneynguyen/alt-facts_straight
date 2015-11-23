@@ -5,7 +5,9 @@ export default class LineItem extends Component{
 	constructor(){
 		super();
 		this.style = {
-			"fontFamily": "sans-serif"
+			"fontFamily": "sans-serif",
+			"width": "300px",
+			"height": "60px"
 		};
 	}
 	render(){
@@ -19,9 +21,9 @@ export default class MainSection extends Component{
 	render(){
 		return(
 			<div style={this.style}>
-			<DraggableContainer key={"0.0"}>
-				<LineItem key={"0.0.1"}>Hi Everyone</LineItem>
-			</DraggableContainer>
+				<DraggableContainer key={"0.0"}>
+					<LineItem key={"0.0.1"}>Hi Everyone</LineItem>
+				</DraggableContainer>
 			</div>
 		)
 	}

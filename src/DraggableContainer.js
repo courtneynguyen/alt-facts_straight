@@ -1,19 +1,18 @@
 import AltContainer from 'alt-container';
 import React, {Component} from 'react';
 import Draggable from './components/Draggable';
-import DraggableStore from './stores/DraggableStore';
+var DraggableStore = require('./stores/DraggableStore');
 import DraggableActions from './actions/DraggableActions';
 
-function getDraggables(){
-	return DraggableStore.getState();
-}
+// function getDraggables(){
+// 	return DraggableStore.getState();
+// }
 
 export default class DraggableContainer extends Component{
 	render(){
 		console.log(this.props.children);
 		var draggableComponents = [];
 		draggableComponents = React.Children.map(this.props.children, (child, i) => {
-			console.log('child?', child);
 			DraggableStore.createDraggable(i);
 			return(
 				<Draggable handleClick={this.handleMouseDown} key={i} id={i}>
