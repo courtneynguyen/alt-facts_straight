@@ -13,8 +13,8 @@ class DraggableActions {
 	createFake(){
 		this.dispatch();
 	}
-	drag(id){
-		this.dispatch(id);
+	drag(draggable){
+		this.dispatch(draggable);
 	}
 };
 

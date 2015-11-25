@@ -1,4 +1,4 @@
- import React, {Component} from 'react';
+import React, {Component} from 'react';
 import DraggableActions from '../actions/DraggableActions';
 import DraggableStyles from '../styles/Draggable';
 
@@ -14,16 +14,24 @@ export default class Draggable extends Component{
 			"left": this.nextPosition.x
 		}
 		this.handleClick = this.handleClick.bind(this);
+		this.handleDrag = this.handleDrag.bind(this);
 	}
 	render(){
-		var draggableClone =
-		React.cloneElement(React.createElement("div", {
-			key: this.props.id,
-			onClick: this.handleClick,
-			style: this.style,
-			onMouseUp: this.handleMouseUp,
-			"data-id": this.props.id
-		}, this.props.children));
+		let style = {
+			"left": this.nextPosition.x,
+			"top": this.nextPosition.y
+		};
+		var draggableClone = React.Children.map((child) => {
+			return (React.cloneElement(child, {
+				key: this.props.id,
+				onClick: this.handleClick,
+				onDrag: this.handleDrag,
+				style: Object.assign(this.style, style),
+				onMouseUp: this.handleMouseUp,
+				"data-id": this.props.id,
+			}, this.props.children));
+		});
+
 			return (
 				<div>
 					{draggableClone}
@@ -33,6 +41,14 @@ export default class Draggable extends Component{
 	setMousePosition(ev){
 		this.nextPosition.x = ev.clientX;
 		this.nextPosition.y = ev.clientY;
+	}
+
+	handleDrag(ev){
+		console.log('dragging', ev);
+		this.props.handleDrag({
+			id: Number(ev.target.getAttribute('data-id')),
+			nextPosition: this.nextPosition
+		});
 	}
 
 	handleClick(ev){

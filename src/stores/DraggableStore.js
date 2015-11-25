@@ -32,11 +32,15 @@ class DraggableStore{
 		_body.addEventListener("mousemove", this.trackMouseForDropTarget, false);
 	}
 
-	dragging(id){
-		this.draggable[id].dragging = true;
-		_body.addEventListener("mousemove", this.setMousePosition, false);
-		DraggableStyles.Clicking["top"] = _mousePos.y + "px";
-		DraggableStyles.Clicking["left"] = _mousePos.x + "px";
+	dragging(draggable){
+		var state = this;
+		state.draggable[draggable.id].dragging = true;
+		state.draggable[draggable.id].nextPosition = draggable.nextPosition;
+		state.draggable[draggable.id].style =
+		Object.assign(state.draggable[draggable.id].style,
+			{"top": draggable.nextPosition.y, "left": draggable.nextPosition.x}
+		);
+
 	}
 
 	createDraggable(id){
@@ -46,7 +50,8 @@ class DraggableStore{
 			clicking: false,
 			dragging: false,
 			pos: {x: 0, y: 0},
-			originPos: {x: 0, y: 0}
+			originPos: {x: 0, y: 0},
+			style: {}
 		}
 	}
 

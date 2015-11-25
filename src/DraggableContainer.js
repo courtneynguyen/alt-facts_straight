@@ -9,13 +9,21 @@ import DraggableActions from './actions/DraggableActions';
 // }
 
 export default class DraggableContainer extends Component{
+	constructor(){
+		super();
+		DraggableStore.createDraggable(0);
+	}
 	render(){
 		console.log(this.props.children);
 		var draggableComponents = [];
 		draggableComponents = React.Children.map(this.props.children, (child, i) => {
-			DraggableStore.createDraggable(i);
 			return(
-				<Draggable handleClick={this.handleMouseDown} key={i} id={i}>
+				<Draggable
+				handleClick={this.handleMouseDown}
+				key={i}
+				id={i}
+				handleDrag={this.handleDrag}
+				>
 				{child.props.children}
 				</Draggable>
 			);
@@ -36,7 +44,8 @@ export default class DraggableContainer extends Component{
 		DraggableActions.nonClicked(Number(ev.target.getAttribute('data-id')));
 	}
 
-	handleDrag(ev){
-		DraggableActions.drag(Number(ev.target.getAttribute('data-id')));
+	handleDrag(draggable){
+		console.log('get here', draggable);
+		DraggableActions.drag(draggable);
 	}
 }
