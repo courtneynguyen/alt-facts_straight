@@ -1,35 +1,45 @@
 import React, {Component} from 'react';
 import DraggableActions from '../actions/DraggableActions';
 import DraggableStyles from '../styles/Draggable';
+import LineItem from '../LineItem';
 
-var body = document.getElementsByTagName("body")[0];
-
+var timer = null;
 export default class Draggable extends Component{
 	constructor(){
 		super();
+
 		this.style={
 			"position": "absolute",
 			"width": "300px",
 			"backgroundColor": "pink",
-			"left": this.nextPosition.x
-		}
-		this.handleClick = this.handleClick.bind(this);
-		this.handleDrag = this.handleDrag.bind(this);
+			"left": 0,
+			"top": 0
+		};
+
+		var body = document.getElementsByTagName("body")[0];
+		body.addEventListener("mousemove", this.setMousePosition.bind(this), false);
+
+		this.handleMouseDown = this.handleMouseDown.bind(this);
+		this.onMouseMove = this.handleMouseMove.bind(this);
+		this.handleMouseMove = this.handleMouseMove.bind(this);
+		this.callMouseMove = this.callMouseMove.bind(this);
 	}
+
 	render(){
 		let style = {
-			"left": this.nextPosition.x,
-			"top": this.nextPosition.y
+			"left": this.props.draggable[this.props.id].nextPosition.x,
+			"top": this.props.draggable[this.props.id].nextPosition.y
 		};
-		var draggableClone = React.Children.map((child) => {
-			return (React.cloneElement(child, {
+		var draggableClone = React.Children.map(this.props.children, (child) => {
+			return React.createElement('div',
+			{
+				style: Object.assign({}, this.style, style),
 				key: this.props.id,
-				onClick: this.handleClick,
-				onDrag: this.handleDrag,
-				style: Object.assign(this.style, style),
+				onMouseDown: this.handleMouseDown,
+				onMouseMove: this.handleMouseMove,
 				onMouseUp: this.handleMouseUp,
-				"data-id": this.props.id,
-			}, this.props.children));
+				"data-id": this.props.id
+			}, this.props.children);
 		});
 
 			return (
@@ -38,28 +48,34 @@ export default class Draggable extends Component{
 				</div>
 		);
 	}
+
 	setMousePosition(ev){
-		this.nextPosition.x = ev.clientX;
-		this.nextPosition.y = ev.clientY;
+		this.localNextPosition.x = ev.clientX;
+		this.localNextPosition.y = ev.clientY;
 	}
 
-	handleDrag(ev){
-		console.log('dragging', ev);
+	handleMouseMove(ev){
+		if(this.props.draggable[this.props.id].clicking){
+			timer = setInterval(this.callMouseMove, 600, ev);
+		}
+	}
+
+	callMouseMove(ev){
+		var position = this.localNextPosition;
 		this.props.handleDrag({
 			id: Number(ev.target.getAttribute('data-id')),
-			nextPosition: this.nextPosition
+			nextPosition: position
 		});
 	}
 
-	handleClick(ev){
-		body.addEventListener("mousemove", this.setMousePosition.bind(this), false);
-		this.props.handleClick(ev);
+	handleMouseDown(ev){
+		this.props.handleMouseDown(ev);
 	}
 
 	handleMouseUp(ev){
-		// body.removeEventListener("mousemove", this.setMousePosition(), false);
+		// this.originPosition = this.nextPosition;
 	}
 };
 
-Draggable.prototype.nextPosition = {x: 0, y: 0};
-Draggable.prototype.originPosition = {x: 0, y: 0};
+Draggable.prototype.localNextPosition = {x: 0, y: 0};
+Draggable.prototype.localOriginPosition = {x: 0, y: 0};

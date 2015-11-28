@@ -8,7 +8,6 @@ var _body = document.getElementsByTagName("body")[0];
 class DraggableStore{
 	constructor(){
 		this.draggable = {};
-		console.log('draggable array exits ', this.draggable);
 		this.bindListeners({
 		  clicked: DraggableActions.CLICKED,
 		  nonClicked: DraggableActions.NON_CLICKED,
@@ -24,23 +23,20 @@ class DraggableStore{
 	nonClicked(id){
 		this.draggable[id].clicking = false;
 		this.draggable[id].dragging = false;
-		_body.removeEventListener("mousemove", this.setMousePosition, false);
 	}
 
 	clicked(id){
 		this.draggable[id].clicking = true;
-		_body.addEventListener("mousemove", this.trackMouseForDropTarget, false);
 	}
 
 	dragging(draggable){
-		var state = this;
+		var state = Object.assign({}, this);
 		state.draggable[draggable.id].dragging = true;
 		state.draggable[draggable.id].nextPosition = draggable.nextPosition;
 		state.draggable[draggable.id].style =
 		Object.assign(state.draggable[draggable.id].style,
 			{"top": draggable.nextPosition.y, "left": draggable.nextPosition.x}
 		);
-
 	}
 
 	createDraggable(id){
@@ -50,7 +46,8 @@ class DraggableStore{
 			clicking: false,
 			dragging: false,
 			pos: {x: 0, y: 0},
-			originPos: {x: 0, y: 0},
+			originPosition: {x: 0, y: 0},
+			nextPosition: {x: 0, y: 0},
 			style: {}
 		}
 	}

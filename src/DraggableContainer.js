@@ -19,7 +19,7 @@ export default class DraggableContainer extends Component{
 		draggableComponents = React.Children.map(this.props.children, (child, i) => {
 			return(
 				<Draggable
-				handleClick={this.handleMouseDown}
+				handleMouseDown={this.handleMouseDown}
 				key={i}
 				id={i}
 				handleDrag={this.handleDrag}
@@ -30,22 +30,20 @@ export default class DraggableContainer extends Component{
 		});
 		return (
 			<AltContainer store={DraggableStore}>
-			{draggableComponents}
+				{draggableComponents}
 			</AltContainer>
 		);
 	}
 
 	handleMouseDown(ev){
-		console.log('clicked');
 		DraggableActions.clicked(Number(ev.target.getAttribute('data-id')));
 	}
 
 	handleMouseUp(ev){
-		DraggableActions.nonClicked(Number(ev.target.getAttribute('data-id')));
+		DraggableActions.nonClicked.defer(Number(ev.target.getAttribute('data-id')));
 	}
 
 	handleDrag(draggable){
-		console.log('get here', draggable);
 		DraggableActions.drag(draggable);
 	}
 }
