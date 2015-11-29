@@ -8,8 +8,8 @@ export default class DraggableContainer extends Component{
 		var draggableComponents = [];
 		draggableComponents = React.Children.map(this.props.children, (child, i) => {
 			return(
-				<Draggable key={i} id={i}>
-				{child.props.children}
+				<Draggable key={i}>
+				{this.props.children}
 				</Draggable>
 			);
 		});

@@ -8,13 +8,12 @@ export default class Draggable extends Component{
 
 		this.style={
 			"position": "absolute",
-			"backgroundColor": "pink",
 			"left": 0,
 			"top": 0
 		};
 
-		var body = document.getElementsByTagName("html")[0];
-		body.addEventListener("mousemove", this.setMousePosition.bind(this), false);
+		var body = document.getElementsByTagName('html')[0];
+		body.addEventListener('mousemove', this.setMousePosition.bind(this), false);
 
 		this.currentPosition = {x: 30, y: 10};
 		this.nextPosition = {x: 30, y: 10};
@@ -26,15 +25,15 @@ export default class Draggable extends Component{
 	}
 
 	render(){
-
 		let style = {
-			"left": (this.currentPosition.x - 30),
-			"top": (this.currentPosition.y - 10)
+			"left": this.currentPosition.x,
+			"top": this.currentPosition.y
 		};
 		var draggableClone = React.Children.map(this.props.children, (child) => {
+			var childStyle = child.props.style || "";
 			return React.createElement('div',
 			{
-				style: Object.assign({}, this.style, style),
+				style: Object.assign({}, this.style, style, childStyle),
 				key: this.props.id,
 				onMouseDown: this.handleMouseDown,
 				onMouseUp: this.handleMouseUp
@@ -49,8 +48,18 @@ export default class Draggable extends Component{
 	}
 
 	setMousePosition(ev){
-		this.localNextPosition.x = ev.clientX;
-		this.localNextPosition.y = ev.clientY;
+		this.localNextPosition.x = (ev.clientX);
+		this.localNextPosition.y = (ev.clientY);
+
+		if(this.props.children.props.style){
+			var dimensions = this.props.children.props.style;
+			this.localNextPosition.x -= (dimensions.width / 2);
+			this.localNextPosition.y -= (dimensions.height / 2);
+		}
+		else{
+			this.localNextPosition.x -= 10;
+			this.localNextPosition.y -= 10;
+		}
 
 		if(this.clicked){
 			this.dragging = true;
