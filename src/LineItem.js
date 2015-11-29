@@ -6,8 +6,8 @@ export default class LineItem extends Component{
 		super();
 		this.style = {
 			"fontFamily": "sans-serif",
-			"width": "300px",
-			"height": "60px"
+			"width": "300",
+			"height": "60"
 		};
 	}
 	render(){

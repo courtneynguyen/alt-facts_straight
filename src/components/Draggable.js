@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import DraggableActions from '../actions/DraggableActions';
 import DraggableStyles from '../styles/Draggable';
 import LineItem from '../LineItem';
-
-var timer = null;
 
 export default class Draggable extends Component{
 	constructor(){
@@ -11,7 +8,6 @@ export default class Draggable extends Component{
 
 		this.style={
 			"position": "absolute",
-			"width": "300px",
 			"backgroundColor": "pink",
 			"left": 0,
 			"top": 0
@@ -20,18 +16,20 @@ export default class Draggable extends Component{
 		var body = document.getElementsByTagName("html")[0];
 		body.addEventListener("mousemove", this.setMousePosition.bind(this), false);
 
-		this.currentPosition = {x: 0, y: 0};
-		this.nextPosition = {x: 0, y: 0};
+		this.currentPosition = {x: 30, y: 10};
+		this.nextPosition = {x: 30, y: 10};
 		this.clicked = false;
 		this.dragging = false;
 
 		this.handleMouseDown = this.handleMouseDown.bind(this);
+		this.handleMouseUp = this.handleMouseUp.bind(this);
 	}
 
 	render(){
+
 		let style = {
-			"left": this.currentPosition.x,
-			"top": this.currentPosition.y
+			"left": (this.currentPosition.x - 30),
+			"top": (this.currentPosition.y - 10)
 		};
 		var draggableClone = React.Children.map(this.props.children, (child) => {
 			return React.createElement('div',
@@ -39,7 +37,6 @@ export default class Draggable extends Component{
 				style: Object.assign({}, this.style, style),
 				key: this.props.id,
 				onMouseDown: this.handleMouseDown,
-				onMouseMove: this.handleMouseMove,
 				onMouseUp: this.handleMouseUp
 			}, this.props.children);
 		});
@@ -66,10 +63,12 @@ export default class Draggable extends Component{
 
 	handleMouseDown(ev){
 		this.clicked = true;
-		this.props.handleMouseDown(ev);
+		this.dragging = true;
+		// this.props.handleMouseDown(ev);
 	}
 
 	handleMouseUp(ev){
+		this.clicked = false;
 		// this.originPosition = this.nextPosition;
 	}
 };
