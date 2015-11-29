@@ -4,6 +4,7 @@ import DraggableStyles from '../styles/Draggable';
 import LineItem from '../LineItem';
 
 var timer = null;
+
 export default class Draggable extends Component{
 	constructor(){
 		super();
@@ -16,19 +17,21 @@ export default class Draggable extends Component{
 			"top": 0
 		};
 
-		var body = document.getElementsByTagName("body")[0];
+		var body = document.getElementsByTagName("html")[0];
 		body.addEventListener("mousemove", this.setMousePosition.bind(this), false);
 
+		this.currentPosition = {x: 0, y: 0};
+		this.nextPosition = {x: 0, y: 0};
+		this.clicked = false;
+		this.dragging = false;
+
 		this.handleMouseDown = this.handleMouseDown.bind(this);
-		this.onMouseMove = this.handleMouseMove.bind(this);
-		this.handleMouseMove = this.handleMouseMove.bind(this);
-		this.callMouseMove = this.callMouseMove.bind(this);
 	}
 
 	render(){
 		let style = {
-			"left": this.props.draggable[this.props.id].nextPosition.x,
-			"top": this.props.draggable[this.props.id].nextPosition.y
+			"left": this.currentPosition.x,
+			"top": this.currentPosition.y
 		};
 		var draggableClone = React.Children.map(this.props.children, (child) => {
 			return React.createElement('div',
@@ -37,38 +40,32 @@ export default class Draggable extends Component{
 				key: this.props.id,
 				onMouseDown: this.handleMouseDown,
 				onMouseMove: this.handleMouseMove,
-				onMouseUp: this.handleMouseUp,
-				"data-id": this.props.id
+				onMouseUp: this.handleMouseUp
 			}, this.props.children);
 		});
 
-			return (
-				<div>
-					{draggableClone}
-				</div>
+		return (
+			<div>
+				{draggableClone}
+			</div>
 		);
 	}
 
 	setMousePosition(ev){
 		this.localNextPosition.x = ev.clientX;
 		this.localNextPosition.y = ev.clientY;
-	}
 
-	handleMouseMove(ev){
-		if(this.props.draggable[this.props.id].clicking){
-			timer = setInterval(this.callMouseMove, 600, ev);
+		if(this.clicked){
+			this.dragging = true;
+			this.currentPosition = this.localNextPosition;
+			this.setState({
+				currentPosition: this.localNextPosition
+			});
 		}
 	}
 
-	callMouseMove(ev){
-		var position = this.localNextPosition;
-		this.props.handleDrag({
-			id: Number(ev.target.getAttribute('data-id')),
-			nextPosition: position
-		});
-	}
-
 	handleMouseDown(ev){
+		this.clicked = true;
 		this.props.handleMouseDown(ev);
 	}
 
