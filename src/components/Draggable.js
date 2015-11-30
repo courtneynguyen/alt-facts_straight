@@ -6,17 +6,16 @@ export default class Draggable extends Component{
 	constructor(){
 		super();
 
-		this.style={
+		this.style = {
 			"position": "absolute",
 			"left": 0,
 			"top": 0
 		};
 
-		var body = document.getElementsByTagName('html')[0];
-		body.addEventListener('mousemove', this.setMousePosition.bind(this), false);
+		var html = document.getElementsByTagName('html')[0];
+		html.addEventListener('mousemove', this.setMousePosition.bind(this), false);
 
-		this.currentPosition = {x: 30, y: 10};
-		this.nextPosition = {x: 30, y: 10};
+		this.currentPosition = {x: 0, y: 0};
 		this.clicked = false;
 		this.dragging = false;
 
@@ -30,7 +29,7 @@ export default class Draggable extends Component{
 			"top": this.currentPosition.y
 		};
 		var draggableClone = React.Children.map(this.props.children, (child) => {
-			var childStyle = child.props.style || "";
+			var childStyle = child.props.style || '';
 			return React.createElement('div',
 			{
 				style: Object.assign({}, this.style, style, childStyle),
@@ -73,12 +72,16 @@ export default class Draggable extends Component{
 	handleMouseDown(ev){
 		this.clicked = true;
 		this.dragging = true;
-		// this.props.handleMouseDown(ev);
+		if(this.props.handleMouseDown){
+			this.props.handleMouseDown(ev);
+		}
 	}
 
 	handleMouseUp(ev){
 		this.clicked = false;
-		// this.originPosition = this.nextPosition;
+		if(this.props.handleMouseUp){
+			this.props.handleMouseUp(ev);
+		}
 	}
 };
 
