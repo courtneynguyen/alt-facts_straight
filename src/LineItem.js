@@ -6,7 +6,7 @@ export default class LineItem extends Component{
 	render(){
 		return(
 			<span>Hello World!</span>
-		)
+		);
 	}
 }
 
@@ -44,7 +44,7 @@ export default class MainSection extends Component{
 					Drop here
 				</DropTarget>
 			</div>
-		)
+		);
 	}
 	handleMouseMove(){
 		this.dropTargetStyle = {

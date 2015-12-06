@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import DraggableStyles from '../styles/Draggable';
 import LineItem from '../LineItem';
+import Immutable from 'immutable';
 
 export default class Draggable extends Component{
 	constructor(){
 		super();
+		var x = Immutable.Map().set({key: "1", value: "test"});
+		console.log(x);
 
 		this.style = {
 			"position": "absolute",
@@ -83,7 +86,7 @@ export default class Draggable extends Component{
 			this.props.handleMouseUp(ev);
 		}
 	}
-};
+}
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
 Draggable.prototype.localOriginPosition = {x: 0, y: 0};
