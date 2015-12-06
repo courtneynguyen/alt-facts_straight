@@ -25,12 +25,15 @@ export default class Draggable extends Component{
 		this.handleMouseUp = this.handleMouseUp.bind(this);
 		this.width = 0;
 		this.height = 0;
+
+		this.setState = this.setState;
 	}
 
 	componentDidMount(){
 		this.width = this.props.children.props.style.width;
 		this.height = this.props.children.props.style.height;
-		
+		this.componentId = this.props.componentId;
+
 		if(this.props.registerDroppable && this.props.dropTargets){
 			this.registerDroppable(this.props.dropTargets);
 		}
@@ -62,7 +65,6 @@ export default class Draggable extends Component{
 	setMousePosition(ev){
 		this.localNextPosition.x = (ev.clientX);
 		this.localNextPosition.y = (ev.clientY);
-		console.log("clientX: " + ev.clientX + ", clientY: "+ ev.clientY);
 
 		if(this.props.children.props.style){
 			this.localNextPosition.x -= (this.width / 2);
@@ -85,6 +87,8 @@ export default class Draggable extends Component{
 	handleMouseDown(ev){
 		this.clicked = true;
 		this.dragging = true;
+		// DragDropManger.checkBoundaries();
+
 		if(this.props.handleMouseDown){
 			this.props.handleMouseDown(ev);
 		}

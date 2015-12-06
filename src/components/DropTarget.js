@@ -9,6 +9,25 @@ export default class DropTarget extends Component{
 		this.handleHoverOverDropTarget = this.handleHoverOverDropTarget.bind(this);
 		this.handleMouseLeave = this.handleMouseLeave.bind(this);
 	}
+	componentDidMount(){
+		if(this.props.children.props.style.width){
+		this.width = this.props.children.props.style.width;
+		}
+		else{
+			throw "Specify width inside style";
+		}
+
+		if(this.props.children.props.style.height){
+			this.height = this.props.children.props.style.height;
+		}
+		else{
+			throw "Specify height inside style";
+		}
+
+		if(this.props.registerDropTarget){
+			this.registerDropTarget(this.props.registerDropTarget);
+		}
+	}
 	render(){
 		let style = this.style;
 		if(this.props.style){
@@ -16,7 +35,10 @@ export default class DropTarget extends Component{
 		}
 
 		return (
-			<div style={style} onMouseOver={this.handleHoverOverDropTarget} onMouseOut={this.handleMouseLeave}>
+			<div
+			style={style}
+			onMouseOver={this.handleHoverOverDropTarget}
+			onMouseOut={this.handleMouseLeave}>
 				{this.props.children}
 			</div>
 		);
@@ -36,5 +58,8 @@ export default class DropTarget extends Component{
 		else{
 			throw Error('missing handleHoverOverDropTarget prop on DropTarget');
 		}
+	}
+	registerDropTarget(func){
+		func(this);
 	}
 }

@@ -1,7 +1,10 @@
 import Immutable from 'immutable';
 export default class DragAndDropManager{
 	constructor(){
-		this.model = Immutable.Map();
+		this.model = {};
+		this.model.droppables = {};
+
+		this.registerDroppable = this.registerDroppable.bind(this);
 	}
 	connectDropToDropTarget(droppable, dropTarget){
 
@@ -12,6 +15,28 @@ export default class DragAndDropManager{
 	}
 
 	registerDroppable(x){
-		console.log("got here", x);
+		this.model.droppables[x.componentId] =
+		{
+			width: x.width,
+			height: x.height,
+			currentPosition: x.currentPosition,
+			componentId: x.componentId,
+			dropTargetIds: x.dropTargetIds
+		};
+	}
+	registerDropTarget(x){
+		console.log(x);
+		this.model.dropTargets[x.componentId] =
+		{
+			width: x.width,
+			height: x.height,
+			currentPosition: x.currentPosition,
+			componentId: x.componentId
+		};
+		console.log(this.model.dropTargets);
+	}
+	checkBoundaries(droppableId){
+		let droppable = this.model.droppables[droppableId];
+		let dropTargets = this.model.droppables[droppableId].dropTargets;
 	}
 }

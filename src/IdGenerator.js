@@ -1,6 +1,6 @@
 let _id = 0;
 export default class IdGenerator{
-	static getId() {
+	static generateId() {
 		return _id++;
 	}
 }
