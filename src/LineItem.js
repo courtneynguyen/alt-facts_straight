@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Draggable from './components/Draggable';
 import DropTarget from './components/DropTarget';
+import AppStore from './stores/AppStore';
+import AltContainer from 'alt-container';
 
 export default class LineItem extends Component{
 	render(){
@@ -37,15 +39,33 @@ export default class MainSection extends Component{
 	render(){
 		return(
 			<div>
-				<Draggable key={"0.0"}>
+				{this.renderDroppables()}
+				{this.renderDropTargets()}
+			</div>
+		);
+	}
+
+	renderDroppables(){
+		return (
+			<AltContainer store={AppStore}>
+				<Draggable key={"0.0"} registerDroppable={this.props.registerDroppable}>
 					<LineItem key={"0.0.1"} style={this.style}>Cats</LineItem>
 				</Draggable>
-				<DropTarget style={this.dropTargetStyle} handleMouseMove={this.handleMouseMove} handleMouseLeave={this.handleMouseLeave}>
+			</AltContainer>
+		);
+	}
+
+	renderDropTargets(){
+		return (
+			<div>
+				<DropTarget
+				style={this.dropTargetStyle} handleMouseMove={this.handleMouseMove} handleMouseLeave={this.handleMouseLeave}>
 					Drop here
 				</DropTarget>
 			</div>
 		);
 	}
+
 	handleMouseMove(){
 		this.dropTargetStyle = {
 			"position": "absolute",

@@ -10,7 +10,7 @@ export default class DropTarget extends Component{
 		this.handleMouseLeave = this.handleMouseLeave.bind(this);
 	}
 	render(){
-		var style = this.style;
+		let style = this.style;
 		if(this.props.style){
 			style = Object.assign({}, this.style, this.props.style);
 		}

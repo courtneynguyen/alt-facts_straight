@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import DraggableStyles from '../styles/Draggable';
 import LineItem from '../LineItem';
 import Immutable from 'immutable';
+import DragDropManager from '../DragDropManager';
 
 export default class Draggable extends Component{
 	constructor(){
 		super();
-		var x = Immutable.Map().set({key: "1", value: "test"});
-		console.log(x);
 
 		this.style = {
 			"position": "absolute",
@@ -24,6 +23,17 @@ export default class Draggable extends Component{
 
 		this.handleMouseDown = this.handleMouseDown.bind(this);
 		this.handleMouseUp = this.handleMouseUp.bind(this);
+		this.width = 0;
+		this.height = 0;
+	}
+
+	componentDidMount(){
+		this.width = this.props.children.props.style.width;
+		this.height = this.props.children.props.style.height;
+		
+		if(this.props.registerDroppable && this.props.dropTargets){
+			this.registerDroppable(this.props.dropTargets);
+		}
 	}
 
 	render(){
@@ -52,11 +62,11 @@ export default class Draggable extends Component{
 	setMousePosition(ev){
 		this.localNextPosition.x = (ev.clientX);
 		this.localNextPosition.y = (ev.clientY);
+		console.log("clientX: " + ev.clientX + ", clientY: "+ ev.clientY);
 
 		if(this.props.children.props.style){
-			var dimensions = this.props.children.props.style;
-			this.localNextPosition.x -= (dimensions.width / 2);
-			this.localNextPosition.y -= (dimensions.height / 2);
+			this.localNextPosition.x -= (this.width / 2);
+			this.localNextPosition.y -= (this.height / 2);
 		}
 		else{
 			this.localNextPosition.x -= 10;
@@ -85,6 +95,9 @@ export default class Draggable extends Component{
 		if(this.props.handleMouseUp){
 			this.props.handleMouseUp(ev);
 		}
+	}
+	registerDroppable(dropTargets){
+		this.props.registerDroppable(this, dropTargets);
 	}
 }
 
