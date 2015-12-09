@@ -4,7 +4,6 @@ import DropTarget from './components/DropTarget';
 import AppStore from './stores/AppStore';
 import AltContainer from 'alt-container';
 import IdGenerator from './IdGenerator';
-import _dragDropManager from '_dragDropManager';
 
 export default class LineItem extends Component{
 	render(){
@@ -51,14 +50,12 @@ export default class MainSection extends Component{
 
 	renderDroppables(){
 		return (
-			<AltContainer store={AppStore}>
-				<Draggable
-				key={"0.0"}
-				componentId={IdGenerator.generateId()}
-				registerDroppable={_dragDropManager.registerDroppable}>
-					<LineItem key={"0.0.1"} style={this.style}>Cats</LineItem>
-				</Draggable>
-			</AltContainer>
+			<Draggable
+			key={"0.0"}
+			componentId={IdGenerator.generateId()}
+			dropTargetIds={[100]}>
+				<LineItem key={"0.0.1"} style={this.style}>Cats</LineItem>
+			</Draggable>
 		);
 	}
 
@@ -68,8 +65,7 @@ export default class MainSection extends Component{
 				<DropTarget
 				handleMouseMove={this.handleMouseMove}
 				handleMouseLeave={this.handleMouseLeave}
-				componentId={100}
-				registerDropTarget={_dragDropManager.registerDropTarget}>
+				componentId={100}>
 					<div style={this.dropTargetStyle}>Drop Target</div>
 				</DropTarget>
 			</div>

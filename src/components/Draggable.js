@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import DraggableStyles from '../styles/Draggable';
 import LineItem from '../LineItem';
 import Immutable from 'immutable';
-import DragDropManager from '../DragDropManager';
+import dragDrop from '../DragDropManager';
 
 export default class Draggable extends Component{
 	constructor(){
 		super();
-
+		console.log(dragDrop().dragging());
 		this.style = {
 			"position": "absolute",
 			"left": 0,
@@ -25,6 +25,7 @@ export default class Draggable extends Component{
 		this.handleMouseUp = this.handleMouseUp.bind(this);
 		this.width = 0;
 		this.height = 0;
+		this.dropTargetIds = [];
 
 		this.setState = this.setState;
 	}
@@ -33,6 +34,7 @@ export default class Draggable extends Component{
 		this.width = this.props.children.props.style.width;
 		this.height = this.props.children.props.style.height;
 		this.componentId = this.props.componentId;
+		this.dropTargetIds = this.props.dropTargetIds;
 
 		if(this.props.registerDroppable && this.props.dropTargets){
 			this.registerDroppable(this.props.dropTargets);
@@ -78,6 +80,7 @@ export default class Draggable extends Component{
 		if(this.clicked){
 			this.dragging = true;
 			this.currentPosition = this.localNextPosition;
+			// dragging();
 			this.setState({
 				currentPosition: this.localNextPosition
 			});
