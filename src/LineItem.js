@@ -4,7 +4,11 @@ import DropTarget from './components/DropTarget';
 import AppStore from './stores/AppStore';
 import AltContainer from 'alt-container';
 import IdGenerator from './IdGenerator';
+import DropTargetModel from './models/DropTarget';
+import DragDropManager from './DragDropManager';
 
+const dragDropManager = new DragDropManager();
+const dropTarget = new DropTargetModel(100, 500,500,500,500);
 export default class LineItem extends Component{
 	render(){
 		return(
@@ -29,8 +33,8 @@ export default class MainSection extends Component{
 		this.dropTargetStyle = {
 			"position": "absolute",
 			"backgroundColor": "rgb(200, 230, 255)",
-			"width": "500",
-			"height": "500",
+			"width": dropTarget.getDimensions().width,
+			"height": dropTarget.getDimensions().height,
 			"top": "500",
 			"left": "500",
 			"zIndex": "1"
@@ -43,29 +47,28 @@ export default class MainSection extends Component{
 		return(
 			<div>
 				{this.renderDroppables()}
-				{this.renderDropTargets()}
 			</div>
 		);
 	}
 
 	renderDroppables(){
-		return (
-			<Draggable
-			key={"0.0"}
-			componentId={IdGenerator.generateId()}
-			dropTargetIds={[100]}>
-				<LineItem key={"0.0.1"} style={this.style}>Cats</LineItem>
-			</Draggable>
-		);
-	}
 
-	renderDropTargets(){
 		return (
 			<div>
+				<Draggable
+				key={"0.0"}
+				componentId={IdGenerator.generateId()}
+				dropTargets={[dropTarget]}
+				manager={dragDropManager}
+				width={300}
+				height={60}>
+					<LineItem key={"0.0.1"} style={this.style} width={500} height={500}>Cats</LineItem>
+				</Draggable>
 				<DropTarget
 				handleMouseMove={this.handleMouseMove}
 				handleMouseLeave={this.handleMouseLeave}
-				componentId={100}>
+				componentId={100}
+				manager={dragDropManager}>
 					<div style={this.dropTargetStyle}>Drop Target</div>
 				</DropTarget>
 			</div>

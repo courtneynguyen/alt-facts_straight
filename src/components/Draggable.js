@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import DraggableStyles from '../styles/Draggable';
 import LineItem from '../LineItem';
 import Immutable from 'immutable';
-import dragDrop from '../DragDropManager';
+
 
 export default class Draggable extends Component{
 	constructor(){
 		super();
-		console.log(dragDrop().dragging());
 		this.style = {
 			"position": "absolute",
 			"left": 0,
@@ -25,19 +24,20 @@ export default class Draggable extends Component{
 		this.handleMouseUp = this.handleMouseUp.bind(this);
 		this.width = 0;
 		this.height = 0;
-		this.dropTargetIds = [];
+		this.dropTargets = [];
 
 		this.setState = this.setState;
 	}
 
 	componentDidMount(){
-		this.width = this.props.children.props.style.width;
-		this.height = this.props.children.props.style.height;
+		this.width = this.props.width;
+		this.height = this.props.height;
+		this.style = Object.assign(this.style, {width: this.width, height: this.height});
 		this.componentId = this.props.componentId;
-		this.dropTargetIds = this.props.dropTargetIds;
+		this.dropTargets = this.props.dropTargets;
 
-		if(this.props.registerDroppable && this.props.dropTargets){
-			this.registerDroppable(this.props.dropTargets);
+		if(this.props.manager){
+			this.props.manager.registerDraggable(this);
 		}
 	}
 
@@ -95,6 +95,10 @@ export default class Draggable extends Component{
 		if(this.props.handleMouseDown){
 			this.props.handleMouseDown(ev);
 		}
+		if(this.props.manager){
+			var x = this.props.manager.draggableIsOverDropTarget(this);
+			console.log(x);
+		}
 	}
 
 	handleMouseUp(ev){
@@ -103,7 +107,8 @@ export default class Draggable extends Component{
 			this.props.handleMouseUp(ev);
 		}
 	}
-	registerDroppable(dropTargets){
+
+	registerDraggable(dropTargets){
 		this.props.registerDroppable(this, dropTargets);
 	}
 }
