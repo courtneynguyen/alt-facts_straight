@@ -5,6 +5,7 @@ export default class DragAndDropManager{
 	constructor(){
 		this.draggables = [];
 		this.dropTargets = [];
+		this.hoveredDropTarget = null;
 	}
 
 	registerDraggable(model){
@@ -25,9 +26,18 @@ export default class DragAndDropManager{
 			};
 			var isOverTarget = boxBoundaryChecking(draggableDimensions, dropTarget);
 			if(isOverTarget){
+				this.hoveredDropTarget = dropTarget;
 				return true;
 			}
 		});
+		this.hoveredDropTarget = null;
 		return false;
+	}
+
+	getDropTargetBeingHovered(){
+		return this.hoveredDropTarget;
+	}
+
+	releaseDraggableOnDropTarget(draggable, dropTarget){
 	}
 }
