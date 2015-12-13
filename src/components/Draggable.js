@@ -26,6 +26,7 @@ export default class Draggable extends Component{
 		this.height = 0;
 		this.dropTargets = [];
 		this.isOverTarget = false;
+		this.hoveredDropTarget = null;
 
 		this.setState = this.setState;
 	}
@@ -82,6 +83,17 @@ export default class Draggable extends Component{
 			this.dragging = true;
 			this.currentPosition = this.localNextPosition;
 
+			if(this.props.manager){
+				var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this);
+				if(draggableisOverDropTarget){
+					this.isOverTarget = true;
+					this.hoveredDropTarget = this.props.manager.getDropTargetBeingHovered();
+				}
+				else {
+					this.isOverTarget = false;
+				}
+			}
+
 			this.setState({
 				currentPosition: this.localNextPosition
 			});
@@ -95,22 +107,15 @@ export default class Draggable extends Component{
 		if(this.props.handleMouseDown){
 			this.props.handleMouseDown(ev);
 		}
-		if(this.props.manager){
-			var x = this.props.manager.draggableIsOverDropTarget(this);
-			if(x){
-				this.isOverTarget = true;
-				let hoveredDropTarget = this.props.manager.getDropTargetBeingHovered();
-			}
-			else {
-				this.isOverTarget = false;
-			}
-		}
 	}
 
 	handleMouseUp(ev){
 		this.clicked = false;
 		if(this.props.handleMouseUp){
 			this.props.handleMouseUp(ev);
+		}
+		if(this.props.manager){
+			this.props.manager.releaseDraggableOnDropTarget(this, this.hoveredDropTarget);
 		}
 	}
 

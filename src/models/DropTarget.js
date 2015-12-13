@@ -5,6 +5,7 @@ export default class DropTarget{
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.ref = null;
 	}
 
 	getCurrentPosition(){
@@ -15,5 +16,11 @@ export default class DropTarget{
 	}
 	getId(){
 		return this.id;
+	}
+	setRef(ref){
+		this.ref = ref;
+	}
+	getRef(){
+		return this.ref;
 	}
 }

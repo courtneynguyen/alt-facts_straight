@@ -8,7 +8,8 @@ import DropTargetModel from './models/DropTarget';
 import DragDropManager from './DragDropManager';
 
 const dragDropManager = new DragDropManager();
-const dropTarget = new DropTargetModel(100, 500,500,500,500);
+const dropTarget = new DropTargetModel(100, 200, 250, 400, 250);
+
 export default class LineItem extends Component{
 	render(){
 		return(
@@ -35,8 +36,8 @@ export default class MainSection extends Component{
 			"backgroundColor": "rgb(200, 230, 255)",
 			"width": dropTarget.getDimensions().width,
 			"height": dropTarget.getDimensions().height,
-			"top": "500",
-			"left": "500",
+			"left": dropTarget.getCurrentPosition().x,
+			"top": dropTarget.getCurrentPosition().y,
 			"zIndex": "1"
 		};
 
@@ -49,6 +50,10 @@ export default class MainSection extends Component{
 				{this.renderDroppables()}
 			</div>
 		);
+	}
+
+	componentDidMount(){
+		dropTarget.setRef(this.refs.dropTargetReference);
 	}
 
 	renderDroppables(){
@@ -68,37 +73,25 @@ export default class MainSection extends Component{
 				handleMouseMove={this.handleMouseMove}
 				handleMouseLeave={this.handleMouseLeave}
 				componentId={100}
-				manager={dragDropManager}>
-					<div style={this.dropTargetStyle}>Drop Target</div>
-				</DropTarget>
+				manager={dragDropManager}
+				style={this.dropTargetStyle}
+				ref="dropTargetReference"/>
 			</div>
 		);
 	}
 
 	handleMouseMove(){
-		this.dropTargetStyle = {
-			"position": "absolute",
+		Object.assign(this.dropTargetStyle,{
 			"backgroundColor": "rgb(10, 230, 255)",
-			"width": "500",
-			"height": "500",
-			"top": "500",
-			"left": "500",
-			"zIndex": "1"
-		};
+		});
 		this.setState({
 			dropTargetStyle: this.dropTargetStyle
 		});
 	}
 	handleMouseLeave(){
-		this.dropTargetStyle = {
-			"position": "absolute",
+		Object.assign(this.dropTargetStyle,{
 			"backgroundColor": "rgb(200, 230, 255)",
-			"width": "500",
-			"height": "500",
-			"top": "500",
-			"left": "500",
-			"zIndex": "1"
-		};
+		});
 		this.setState({
 			dropTargetStyle: this.dropTargetStyle
 		});

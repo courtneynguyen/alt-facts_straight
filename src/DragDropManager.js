@@ -24,14 +24,12 @@ export default class DragAndDropManager{
 				x: draggable.currentPosition.x,
 				y: draggable.currentPosition.y
 			};
-			var isOverTarget = boxBoundaryChecking(draggableDimensions, dropTarget);
-			if(isOverTarget){
+			draggable.isOverTarget = boxBoundaryChecking(draggableDimensions, dropTarget);
+			if(draggable.isOverTarget){
 				this.hoveredDropTarget = dropTarget;
-				return true;
 			}
 		});
-		this.hoveredDropTarget = null;
-		return false;
+		return draggable.isOverTarget;
 	}
 
 	getDropTargetBeingHovered(){
@@ -39,5 +37,9 @@ export default class DragAndDropManager{
 	}
 
 	releaseDraggableOnDropTarget(draggable, dropTarget){
+		if(draggable.isOverTarget){
+			var y = dropTarget.getRef();
+			y.setContent(draggable.props.children.props.children);
+		}
 	}
 }
