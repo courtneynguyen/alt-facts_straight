@@ -13,7 +13,7 @@ const dropTarget = new DropTargetModel(100, 200, 250, 400, 250);
 export default class LineItem extends Component{
 	render(){
 		return(
-			<span>Hello World!</span>
+			<span>{this.props.children}</span>
 		);
 	}
 }

@@ -40,6 +40,7 @@ export default class DragAndDropManager{
 		if(draggable.isOverTarget){
 			var y = dropTarget.getRef();
 			y.setContent(draggable.props.children.props.children);
+			draggable.hideDraggable();
 		}
 	}
 }

@@ -119,9 +119,11 @@ export default class Draggable extends Component{
 		}
 	}
 
-	registerDraggable(dropTargets){
-		this.props.registerDroppable(this, dropTargets);
+	hideDraggable(){
+		this.style = Object.assign(this.style, {visibility: 'hidden'});
+		this.setState({style: this.style});
 	}
+
 }
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
