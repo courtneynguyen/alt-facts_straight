@@ -36,12 +36,12 @@ export default class Draggable extends Component{
 			x: this.props.x,
 			y: this.props.y
 		};
-	}
-
-	componentDidMount(){
 		this.width = this.props.width;
 		this.height = this.props.height;
 		this.style = Object.assign(this.style, {width: this.width, height: this.height});
+	}
+
+	componentDidMount(){
 		this.componentId = this.props.componentId;
 		this.dropTargets = this.props.dropTargets;
 
