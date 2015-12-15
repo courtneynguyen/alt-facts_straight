@@ -25,8 +25,6 @@ export default class MainSection extends Component{
 		var x = IdGenerator.generateId();
 		this.style = {
 			"fontFamily": "sans-serif",
-			"width": "300",
-			"height": "60",
 			"cursor": "default",
 			"backgroundColor": "pink",
 			"zIndex": "5"
@@ -66,8 +64,21 @@ export default class MainSection extends Component{
 				dropTargets={[dropTarget]}
 				manager={dragDropManager}
 				width={300}
-				height={60}>
+				height={60}
+				x={0}
+				y={0}>
 					<LineItem key={"0.0.1"} style={this.style} width={500} height={500}>Cats</LineItem>
+				</Draggable>
+				<Draggable
+				key={"0.1"}
+				componentId={IdGenerator.generateId()}
+				dropTargets={[dropTarget]}
+				manager={dragDropManager}
+				width={100}
+				height={100}
+				x={0}
+				y={100}>
+					<LineItem key={"0.0.2"} style={this.style} width={500} height={500}>Tacos</LineItem>
 				</Draggable>
 				<DropTarget
 				handleMouseMove={this.handleMouseMove}

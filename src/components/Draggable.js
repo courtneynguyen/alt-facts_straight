@@ -31,6 +31,13 @@ export default class Draggable extends Component{
 		this.setState = this.setState;
 	}
 
+	componentWillMount(){
+		this.currentPosition = {
+			x: this.props.x,
+			y: this.props.y
+		};
+	}
+
 	componentDidMount(){
 		this.width = this.props.width;
 		this.height = this.props.height;
@@ -70,18 +77,12 @@ export default class Draggable extends Component{
 		this.localNextPosition.x = (ev.clientX);
 		this.localNextPosition.y = (ev.clientY);
 
-		if(this.props.children.props.style){
-			this.localNextPosition.x -= (this.width / 2);
-			this.localNextPosition.y -= (this.height / 2);
-		}
-		else{
-			this.localNextPosition.x -= 10;
-			this.localNextPosition.y -= 10;
-		}
-
 		if(this.clicked){
 			this.dragging = true;
+			this.localNextPosition.x -= (this.width / 2);
+			this.localNextPosition.y -= (this.height / 2);
 			this.currentPosition = this.localNextPosition;
+
 
 			if(this.props.manager){
 				var draggableisOverDropTarget = this.props.manager.draggableIsOverDropTarget(this);
