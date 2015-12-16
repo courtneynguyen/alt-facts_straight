@@ -6,55 +6,50 @@ export default class DropTarget extends Component{
 		this.mouseIsOverTarget = false;
 		this.style = {};
 
-		this.handleHoverOverDropTarget = this.handleHoverOverDropTarget.bind(this);
-		this.handleMouseLeave = this.handleMouseLeave.bind(this);
 		this.content = [];
+		this.hoveredStyle = {};
+		this.wrapper = "";
+	}
+	componentWillMount(){
+		this.wrapper = this.props.wrapper || 'div';
+		this.innerDropTarget = this.props.innerDropTarget || {};
+		this.innerDropTarget.ele = this.innerDropTarget.ele || 'div';
+		this.innerDropTarget.options = this.innerDropTarget.options || '';
 	}
 	componentDidMount(){
-
 		if(this.props.registerDropTarget){
 			this.registerDropTarget(this.props.registerDropTarget);
 		}
 	}
+
 	render(){
 		let style = this.style;
 		if(this.props.style){
 			style = Object.assign({}, this.style, this.props.style);
 		}
 		var listItems = this.content.map((item) => {
-			return (<li>{item}</li>);
+			return React.createElement(this.innerDropTarget.ele, this.innerDropTarget.options, item);
 		});
 
-		return (
-			<div
-			style={style}
-			onMouseOver={this.handleHoverOverDropTarget}
-			onMouseOut={this.handleMouseLeave}>
-				<ul>
-				{listItems}
-				</ul>
-			</div>
-		);
-	}
-	handleHoverOverDropTarget(e){
-		if(this.props.handleMouseMove){
-			this.props.handleMouseMove(e);
-		}
-		else{
-			throw Error('missing handleHoverOverDropTarget prop on DropTarget');
-		}
-	}
-	handleMouseLeave(e){
-		if(this.props.handleMouseLeave){
-			this.props.handleMouseLeave(e);
-		}
-		else{
-			throw Error('missing handleHoverOverDropTarget prop on DropTarget');
-		}
+		var dropTargetElement = React.createElement(this.wrapper, {
+			style: style
+		}, listItems);
+
+		return dropTargetElement;
 	}
 
 	setContent(content){
 		this.content.push(content);
 		this.setState({content: this.content});
+	}
+
+	draggableHoveringOverDropTarget(){
+		if(this.props.handleDraggableHoveringOverDropTarget){
+			this.props.handleDraggableHoveringOverDropTarget(this);
+		}
+	}
+
+	setHoverStyle(style){
+		this.hoveredStyle = style;
 	}
 }

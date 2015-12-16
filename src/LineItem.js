@@ -55,7 +55,15 @@ export default class MainSection extends Component{
 	}
 
 	renderDroppables(){
-
+		var innerDropTarget = {
+			ele: "li",
+			options: {
+				style: {
+				"backgroundColor": "blue",
+				"fontFamily": "sans-serif"
+				}
+			}
+		};
 		return (
 			<div>
 				<Draggable
@@ -86,7 +94,10 @@ export default class MainSection extends Component{
 				componentId={100}
 				manager={dragDropManager}
 				style={this.dropTargetStyle}
-				ref="dropTargetReference"/>
+				ref="dropTargetReference"
+				wrapper="ul"
+				innerDropTarget={innerDropTarget}
+				/>
 			</div>
 		);
 	}
