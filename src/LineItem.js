@@ -78,7 +78,7 @@ export default class MainSection extends Component{
 							componentId={dropTarget.getId()}
 							manager={dragDropManager}
 							style={dropTarget.getBaseStyle()}
-							ref={ref}
+							ref={(c)=> {dropTarget.setRef(c);}}
 							wrapper="div"
 							innerDropTarget={innerDropTarget}
 							title={dropTarget.getTitle()} />);

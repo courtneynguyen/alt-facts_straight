@@ -26,7 +26,7 @@ export default class DropTarget extends Component{
 
 		var dropTargetElement = React.createElement(this.wrapper, {
 			style: style
-		}, this.props.title);
+		}, [this.props.title, listItems]);
 
 		return dropTargetElement;
 	}
