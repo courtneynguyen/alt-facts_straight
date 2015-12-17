@@ -70,7 +70,7 @@ export default class MainSection extends Component{
 				}
 			}
 		};
-		var dropTargetComponents = this.dropTargets.map((dropTarget)=> {
+		var dropTargetComponents = this.dropTargets.map((dropTarget) => {
 			dropTarget.setRef(this.refs[dropTarget.getId() + "-target"]);
 			var ref = dropTarget.getId() + "-target";
 			return (<DropTarget
@@ -79,7 +79,7 @@ export default class MainSection extends Component{
 							manager={dragDropManager}
 							style={dropTarget.getBaseStyle()}
 							ref={(c)=> {dropTarget.setRef(c);}}
-							wrapper="div"
+							wrapper="ul"
 							innerDropTarget={innerDropTarget}
 							title={dropTarget.getTitle()} />);
 		});

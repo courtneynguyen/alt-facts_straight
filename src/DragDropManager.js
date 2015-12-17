@@ -21,7 +21,7 @@ export default class DragAndDropManager{
 	}
 
 	draggableIsOverDropTarget(draggable){
-		this.dropTargets.forEach((dropTarget) => {
+		for(var dropTarget of this.dropTargets){
 			var draggableDimensions = {
 				width: draggable.width,
 				height: draggable.height,
@@ -31,8 +31,9 @@ export default class DragAndDropManager{
 			draggable.isOverTarget = boxBoundaryChecking(draggableDimensions, dropTarget);
 			if(draggable.isOverTarget){
 				this.hoveredDropTarget = dropTarget;
+				break;
 			}
-		});
+		}
 		return draggable.isOverTarget;
 	}
 

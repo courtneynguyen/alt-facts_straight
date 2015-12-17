@@ -24,11 +24,13 @@ export default class DropTarget extends Component{
 			return React.createElement(this.innerDropTarget.ele, this.innerDropTarget.options, item);
 		});
 
-		var dropTargetElement = React.createElement(this.wrapper, {
-			style: style
-		}, [this.props.title, listItems]);
+		var dropTargetElement = React.createElement(this.wrapper, null, listItems);
 
-		return dropTargetElement;
+		return (
+		<div style={style}>
+			<h3>{this.props.title}</h3>
+			{dropTargetElement}
+		</div>);
 	}
 
 	setContent(content){
