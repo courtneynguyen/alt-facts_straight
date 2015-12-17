@@ -16,8 +16,12 @@ export default class DragAndDropManager{
 		this.dropTargets.push(model);
 	}
 
+	getDropTargets(){
+		return this.dropTargets;
+	}
+
 	draggableIsOverDropTarget(draggable){
-		draggable.dropTargets.forEach((dropTarget) => {
+		this.dropTargets.forEach((dropTarget) => {
 			var draggableDimensions = {
 				width: draggable.width,
 				height: draggable.height,

@@ -6,6 +6,11 @@ export default class DropTarget{
 		this.width = width;
 		this.height = height;
 		this.ref = null;
+		this.baseStyle = '';
+		this.hoverStyle = '';
+		this.draggableHoveringOverDropTargetStyle = '';
+		this.wrapperElement = '';
+		this.title = '';
 	}
 
 	getCurrentPosition(){
@@ -22,5 +27,17 @@ export default class DropTarget{
 	}
 	getRef(){
 		return this.ref;
+	}
+	setBaseStyle(style){
+		this.baseStyle = style;
+	}
+	getBaseStyle(){
+		return this.baseStyle;
+	}
+	setTitle(title){
+		this.title = title;
+	}
+	getTitle(){
+		return this.title;
 	}
 }

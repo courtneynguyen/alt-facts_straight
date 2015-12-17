@@ -5,9 +5,7 @@ export default class DropTarget extends Component{
 		super();
 		this.mouseIsOverTarget = false;
 		this.style = {};
-
 		this.content = [];
-		this.hoveredStyle = {};
 		this.wrapper = "";
 	}
 	componentWillMount(){
@@ -15,11 +13,6 @@ export default class DropTarget extends Component{
 		this.innerDropTarget = this.props.innerDropTarget || {};
 		this.innerDropTarget.ele = this.innerDropTarget.ele || 'div';
 		this.innerDropTarget.options = this.innerDropTarget.options || '';
-	}
-	componentDidMount(){
-		if(this.props.registerDropTarget){
-			this.registerDropTarget(this.props.registerDropTarget);
-		}
 	}
 
 	render(){
@@ -33,7 +26,7 @@ export default class DropTarget extends Component{
 
 		var dropTargetElement = React.createElement(this.wrapper, {
 			style: style
-		}, listItems);
+		}, this.props.title);
 
 		return dropTargetElement;
 	}
