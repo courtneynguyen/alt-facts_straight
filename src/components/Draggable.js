@@ -42,6 +42,7 @@ export default class Draggable extends Component{
 	}
 
 	componentDidMount(){
+
 		this.componentId = this.props.componentId;
 		this.dropTargets = this.props.dropTargets;
 
