@@ -10,9 +10,11 @@ export default class DropTarget extends Component{
 	}
 	componentWillMount(){
 		this.wrapper = this.props.wrapper || 'div';
-		this.innerDropTarget = this.props.innerDropTarget || {};
-		this.innerDropTarget.ele = this.innerDropTarget.ele || 'div';
-		this.innerDropTarget.options = this.innerDropTarget.options || '';
+		this.content = this.props.defaultContent;
+		this.style = this.props.style;
+		if(this.props.model){
+			this.props.model.setRef(this);
+		}
 	}
 
 	render(){
@@ -20,20 +22,21 @@ export default class DropTarget extends Component{
 		if(this.props.style){
 			style = Object.assign({}, this.style, this.props.style);
 		}
-		var listItems = this.content.map((item) => {
-			return React.createElement(this.innerDropTarget.ele, this.innerDropTarget.options, item);
-		});
 
-		var dropTargetElement = React.createElement(this.wrapper, null, listItems);
+		var dropTargetElement = React.createElement(this.wrapper, style, this.content);
 
 		return (
 		<div style={style}>
-			<h3>{this.props.title}</h3>
 			{dropTargetElement}
 		</div>);
 	}
 
 	setContent(content){
+		this.content = content;
+		this.setState({content: this.content});
+	}
+
+	appendToContent(content){
 		this.content.push(content);
 		this.setState({content: this.content});
 	}

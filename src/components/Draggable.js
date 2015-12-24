@@ -42,8 +42,6 @@ export default class Draggable extends Component{
 	}
 
 	componentDidMount(){
-
-		this.componentId = this.props.componentId;
 		this.dropTargets = this.props.dropTargets;
 
 		if(this.props.manager){
@@ -117,7 +115,7 @@ export default class Draggable extends Component{
 			this.props.handleMouseUp(ev);
 		}
 		if(this.props.manager){
-			this.props.manager.releaseDraggableOnDropTarget(this, this.hoveredDropTarget);
+			this.props.manager.releaseDraggableOnDropTarget(this, this.props.droppedDraggable);
 		}
 	}
 
@@ -125,7 +123,6 @@ export default class Draggable extends Component{
 		this.style = Object.assign(this.style, {visibility: 'hidden'});
 		this.setState({style: this.style});
 	}
-
 }
 
 Draggable.prototype.localNextPosition = {x: 0, y: 0};
